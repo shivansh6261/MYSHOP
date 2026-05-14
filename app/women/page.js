@@ -6,26 +6,30 @@ import Link from 'next/link';
 export default function WomenCategoryPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  // MOCK DATA: Women's Products
+  // MOCK DATA: Women's Products (Expanded to 12 items)
   const womensProducts = [
-    { id: 1, name: 'Floral Summer Dress', price: '₹2,999', category: 'Dresses', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&q=80' },
-    { id: 2, name: 'Premium Silk Blouse', price: '₹1,899', category: 'Tops', image: 'https://images.unsplash.com/photo-1588117260148-b47818741c74?w=500&q=80' },
-    { id: 3, name: 'High-Waisted Trousers', price: '₹2,499', category: 'Bottoms', image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&q=80' },
-    { id: 4, name: 'Tailored Wool Blazer', price: '₹4,599', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1550639525-c97d455acf70?w=500&q=80' },
-    { id: 5, name: 'Pleated Midi Skirt', price: '₹1,999', category: 'Bottoms', image: 'https://images.unsplash.com/photo-1583496661160-c588c25a585d?w=500&q=80' },
-    { id: 6, name: 'Chunky Knit Sweater', price: '₹2,199', category: 'Tops', image: 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?w=500&q=80' },
-    { id: 7, name: 'Elegant Evening Gown', price: '₹8,999', category: 'Dresses', image: 'https://images.unsplash.com/photo-1566160983994-0130cecc32b6?w=500&q=80' },
-    { id: 8, name: 'Classic Denim Jacket', price: '₹3,499', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1523359346063-d879354c0ea5?w=500&q=80' },
+    { id: 1, name: 'Floral Summer Dress', price: '₹2,999', category: 'Dresses', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80' },
+    { id: 2, name: 'Premium Silk Blouse', price: '₹1,899', category: 'Tops', image: 'https://images.unsplash.com/photo-1588117260148-b47818741c74?auto=format&fit=crop&w=800&q=80' },
+    { id: 3, name: 'High-Waisted Trousers', price: '₹2,499', category: 'Bottoms', image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=80' },
+    { id: 4, name: 'Tailored Wool Blazer', price: '₹4,599', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&w=800&q=80' },
+    { id: 5, name: 'Pleated Midi Skirt', price: '₹1,999', category: 'Bottoms', image: 'https://plus.unsplash.com/premium_photo-1675186049366-64a655f8f537?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGZhc2hpb258ZW58MHx8MHx8fDA%3D' },
+    { id: 6, name: 'Chunky Knit Sweater', price: '₹2,199', category: 'Tops', image: 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?auto=format&fit=crop&w=800&q=80' },
+    { id: 7, name: 'Elegant Evening Gown', price: '₹8,999', category: 'Dresses', image: 'https://images.unsplash.com/photo-1559034750-cdab70a66b8e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8RWxlZ2FudCUyMEV2ZW5pbmclMjBHb3dufGVufDB8fDB8fHww' },
+    { id: 8, name: 'Classic Denim Jacket', price: '₹3,499', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1523359346063-d879354c0ea5?auto=format&fit=crop&w=800&q=80' },
+    { id: 9, name: 'Cashmere Turtleneck', price: '₹3,299', category: 'Tops', image: 'https://media.istockphoto.com/id/108129042/photo/young-woman-wearing-cashmere-sweater.jpg?s=612x612&w=0&k=20&c=3uxKoRTcG-fGhCLImPZXiGA51z_njHmBricUqbmW7HA=' },
+    { id: 10, name: 'Wide-Leg Linen Pants', price: '₹2,799', category: 'Bottoms', image: 'https://images.unsplash.com/photo-1509319117193-57bab727e09d?auto=format&fit=crop&w=800&q=80' },
+    { id: 11, name: 'Satin Slip Dress', price: '₹3,599', category: 'Dresses', image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80' },
+    { id: 12, name: 'Double-Breasted Trench Coat', price: '₹6,999', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1742672725140-59b8e7402958?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fERvdWJsZS1CcmVhc3RlZCUyMFRyZW5jaCUyMENvYXR8ZW58MHx8MHx8fDA%3D' },
   ];
 
   return (
     <div className="min-h-screen bg-white">
-      
+
       {/* 1. CATEGORY HERO BANNER */}
       <section className="relative w-full h-[40vh] bg-gray-900 flex items-center justify-center">
-        <img 
-          src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1920&q=80" 
-          alt="Women's Collection" 
+        <img
+          src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1920&q=80"
+          alt="Women's Collection"
           className="absolute inset-0 w-full h-full object-cover opacity-50 object-top"
         />
         <div className="relative z-10 text-center px-4">
@@ -38,13 +42,13 @@ export default function WomenCategoryPage() {
         </div>
       </section>
 
-      {/* 2. MAIN LAYOUT (Sidebar + Grid) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-10">
-        
+      {/* 2. MAIN LAYOUT (Sidebar + Grid) - EXPANDED WIDTH */}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-10">
+
         {/* Mobile Filter Toggle Button */}
         <div className="lg:hidden flex justify-between items-center border-b border-gray-200 pb-4">
           <span className="font-bold text-gray-900">{womensProducts.length} Products</span>
-          <button 
+          <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
             className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700"
           >
@@ -53,8 +57,8 @@ export default function WomenCategoryPage() {
           </button>
         </div>
 
-        {/* Sidebar / Filters */}
-        <aside className={`${isFilterOpen ? 'block' : 'hidden'} lg:block w-full lg:w-1/4 flex-shrink-0 space-y-8`}>
+        {/* Sidebar / Filters - FIXED WIDTH (w-64) */}
+        <aside className={`${isFilterOpen ? 'block' : 'hidden'} lg:block w-full lg:w-64 flex-shrink-0 space-y-8`}>
           {/* Categories Filter */}
           <div>
             <h3 className="text-lg font-bold text-gray-900 mb-4 border-b border-gray-200 pb-2">Categories</h3>
@@ -86,9 +90,9 @@ export default function WomenCategoryPage() {
           </div>
         </aside>
 
-        {/* Product Grid Area */}
-        <main className="w-full lg:w-3/4">
-          
+        {/* Product Grid Area - FLEX-1 TO FILL REMAINING SPACE */}
+        <main className="flex-1">
+
           {/* Top Bar (Desktop) */}
           <div className="hidden lg:flex justify-between items-center mb-8 border-b border-gray-200 pb-4">
             <span className="text-gray-500">Showing all {womensProducts.length} results</span>
@@ -103,15 +107,15 @@ export default function WomenCategoryPage() {
             </div>
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+          {/* Grid - 4 COLUMNS ON XL SCREENS */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {womensProducts.map((product) => (
               <div key={product.id} className="group cursor-pointer">
                 {/* Image Container */}
-                <div className="relative w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden mb-4">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
+                <div className="relative w-full h-[350px] bg-gray-100 rounded-lg overflow-hidden mb-4">
+                  <img
+                    src={product.image}
+                    alt={product.name}
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                   />
                   {/* Category Badge */}

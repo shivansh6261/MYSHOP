@@ -10,12 +10,16 @@ export default function HomePage() {
     { name: 'Accessories', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=80', path: '/accessories' },
   ];
 
-  // MOCK DATA: Featured Products with INR (₹) Pricing
+  // MOCK DATA: Featured Products with INR (₹) Pricing (Expanded to 8 items)
   const featuredProducts = [
     { id: 1, name: 'Classic Emerald Polo', price: '₹3,499', image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80' },
     { id: 2, name: 'Tailored Fit Chinos', price: '₹4,999', image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&q=80' },
-    { id: 3, name: 'Premium Linen Blend', price: '₹6,499', image: 'https://images.unsplash.com/photo-1596755094514-f87e32f85e2c?w=500&q=80' },
+    { id: 3, name: 'Premium Linen Blend', price: '₹6,499', image: 'https://plus.unsplash.com/premium_photo-1691622500876-2d32e983b132?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGluZW4lMjBCbGVuZHxlbnwwfHwwfHx8MA%3D%3D' },
     { id: 4, name: 'Urban Leather Jacket', price: '₹14,999', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80' },
+    { id: 5, name: 'Minimalist White Sneakers', price: '₹3,999', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&q=80' },
+    { id: 6, name: 'Silk Patterned Scarf', price: '₹1,299', image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=500&q=80' },
+    { id: 7, name: 'Oversized Cotton Tee', price: '₹1,499', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80' },
+    { id: 8, name: 'Suede Chelsea Boots', price: '₹5,999', image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500&q=80' },
   ];
 
   return (

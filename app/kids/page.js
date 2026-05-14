@@ -6,16 +6,20 @@ import Link from 'next/link';
 export default function KidsCategoryPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  // MOCK DATA: Kids & Baby Products
-  const kidsProducts = [
-    { id: 1, name: 'Cotton Striped Onesie', price: '₹999', category: 'Infants', image: 'https://images.unsplash.com/photo-1522771930-78848d92871d?w=500&q=80' },
-    { id: 2, name: 'Girls Floral Sundress', price: '₹1,499', category: 'Girls', image: 'https://images.unsplash.com/photo-1622290291468-a28f7a5dc6a8?w=500&q=80' },
-    { id: 3, name: 'Boys Graphic T-Shirt', price: '₹799', category: 'Boys', image: 'https://images.unsplash.com/photo-1514090259040-c6d9c4f1c9c4?w=500&q=80' },
-    { id: 4, name: 'Toddler Denim Overalls', price: '₹1,799', category: 'Unisex', image: 'https://images.unsplash.com/photo-1519241047957-be31d7379a5d?w=500&q=80' },
-    { id: 5, name: 'Winter Puffer Jacket', price: '₹2,499', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1503945438517-f65904a52ce6?w=500&q=80' },
-    { id: 6, name: 'Knit Cardigan Sweater', price: '₹1,299', category: 'Girls', image: 'https://images.unsplash.com/photo-1604467715878-154a37b34e5f?w=500&q=80' },
-    { id: 7, name: 'Boys Chino Shorts', price: '₹1,099', category: 'Boys', image: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500&q=80' },
-    { id: 8, name: 'Colorful Play Sneakers', price: '₹1,999', category: 'Shoes', image: 'https://images.unsplash.com/photo-1515347619362-e6114ebbd68e?w=500&q=80' },
+  // MOCK DATA: Kids & Baby Products (Expanded to 12 items)
+const kidsProducts = [
+    { id: 1, name: 'Cotton Striped Onesie', price: '₹999', category: 'Infants', image: 'https://media.istockphoto.com/id/2226265303/photo/curious-baby-boy-smiling-while-playing-on-the-floor.webp?a=1&b=1&s=612x612&w=0&k=20&c=XRLLsxQb3GKABbqaIzsWgksH8rcGQV5RPx4msI_gDFw=' },
+    { id: 2, name: 'Girls Floral Sundress', price: '₹1,499', category: 'Girls', image: 'https://plus.unsplash.com/premium_photo-1677180777140-895e6bdda25e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEdpcmxzJTIwRmxvcmFsJTIwU3VuZHJlc3N8ZW58MHx8MHx8fDA%3D' },
+    { id: 3, name: 'Boys Graphic T-Shirt', price: '₹799', category: 'Boys', image: 'https://images.unsplash.com/photo-1630827223608-dcd7f69871be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fEJveXMlMjBHcmFwaGljJTIwVC1TaGlydHxlbnwwfHwwfHx8MA%3D%3D' },
+    { id: 4, name: 'Toddler Denim Overalls', price: '₹1,799', category: 'Unisex', image: 'https://images.unsplash.com/photo-1698939096910-5b9a8fec3425?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fFRvZGRsZXIlMjBEZW5pbSUyME92ZXJhbGxzfGVufDB8fDB8fHww' },
+    { id: 5, name: 'Winter Puffer Jacket', price: '₹2,499', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1503945438517-f65904a52ce6?auto=format&fit=crop&w=800&q=80' },
+    { id: 6, name: 'Knit Cardigan Sweater', price: '₹1,299', category: 'Girls', image: 'https://plus.unsplash.com/premium_photo-1671460921793-e5e99d795819?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8S25pdCUyMENhcmRpZ2FuJTIwU3dlYXRlcnxlbnwwfHwwfHx8MA%3D%3D' },
+    { id: 7, name: 'Boys Chino Shorts', price: '₹1,099', category: 'Boys', image: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80' },
+    { id: 8, name: 'Colorful Play Sneakers', price: '₹1,999', category: 'Shoes', image: 'https://images.unsplash.com/photo-1694026091737-10fdadf460ac?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Q29sb3JmdWwlMjBQbGF5JTIwU25lYWtlcnN8ZW58MHx8MHx8fDA%3D' },
+    { id: 9, name: 'Baby Knit Beanie', price: '₹499', category: 'Accessories', image: 'https://plus.unsplash.com/premium_photo-1681152385632-036d0fa367ca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEJhYnklMjBLbml0JTIwQmVhbmllfGVufDB8fDB8fHww' },
+    { id: 10, name: 'Toddler Rain Boots', price: '₹1,299', category: 'Shoes', image: 'https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&w=800&q=80' },
+    { id: 11, name: 'Girls Ruffle Top', price: '₹899', category: 'Girls', image: 'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=800&q=80' },
+    { id: 12, name: 'Boys Fleece Sweatpants', price: '₹1,199', category: 'Boys', image: 'https://images.unsplash.com/photo-1503919005314-30d93d07d823?auto=format&fit=crop&w=800&q=80' },
   ];
 
   return (
@@ -38,8 +42,8 @@ export default function KidsCategoryPage() {
         </div>
       </section>
 
-      {/* 2. MAIN LAYOUT (Sidebar + Grid) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-10">
+      {/* 2. MAIN LAYOUT (Sidebar + Grid) - EXPANDED WIDTH TO 1400px */}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-10">
         
         {/* Mobile Filter Toggle Button */}
         <div className="lg:hidden flex justify-between items-center border-b border-gray-200 pb-4">
@@ -53,8 +57,8 @@ export default function KidsCategoryPage() {
           </button>
         </div>
 
-        {/* Sidebar / Filters */}
-        <aside className={`${isFilterOpen ? 'block' : 'hidden'} lg:block w-full lg:w-1/4 flex-shrink-0 space-y-8`}>
+        {/* Sidebar / Filters - FIXED WIDTH (w-64 / 256px) */}
+        <aside className={`${isFilterOpen ? 'block' : 'hidden'} lg:block w-full lg:w-64 flex-shrink-0 space-y-8`}>
           {/* Categories Filter */}
           <div>
             <h3 className="text-lg font-bold text-gray-900 mb-4 border-b border-gray-200 pb-2">Categories</h3>
@@ -101,8 +105,8 @@ export default function KidsCategoryPage() {
           </div>
         </aside>
 
-        {/* Product Grid Area */}
-        <main className="w-full lg:w-3/4">
+        {/* Product Grid Area - FLEX-1 TO FILL REMAINING SPACE */}
+        <main className="flex-1">
           
           {/* Top Bar (Desktop) */}
           <div className="hidden lg:flex justify-between items-center mb-8 border-b border-gray-200 pb-4">
@@ -118,12 +122,12 @@ export default function KidsCategoryPage() {
             </div>
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+          {/* Grid - 4 COLUMNS ON XL SCREENS */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {kidsProducts.map((product) => (
               <div key={product.id} className="group cursor-pointer">
                 {/* Image Container */}
-                <div className="relative w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden mb-4">
+                <div className="relative w-full h-[350px] bg-gray-100 rounded-lg overflow-hidden mb-4">
                   <img 
                     src={product.image} 
                     alt={product.name} 
@@ -158,6 +162,7 @@ export default function KidsCategoryPage() {
               <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-500 hover:bg-gray-50 cursor-not-allowed" disabled>Previous</button>
               <button className="px-4 py-2 bg-emerald-600 text-white rounded-md font-medium">1</button>
               <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 font-medium">2</button>
+              <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 font-medium">3</button>
               <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Next</button>
             </nav>
           </div>

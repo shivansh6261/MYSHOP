@@ -6,16 +6,20 @@ import Link from 'next/link';
 export default function MenCategoryPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  // MOCK DATA: Men's Products
+  // MOCK DATA: Men's Products (12 items)
   const mensProducts = [
     { id: 1, name: 'Emerald Formal Shirt', price: '₹2,499', category: 'Shirts', image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=500&q=80' },
     { id: 2, name: 'Slim Fit Chinos', price: '₹2,999', category: 'Trousers', image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&q=80' },
-    { id: 3, name: 'Casual Linen Blend', price: '₹1,899', category: 'Shirts', image: 'https://images.unsplash.com/photo-1596755094514-f87e32f85e2c?w=500&q=80' },
+    { id: 3, name: 'Casual Linen Blend', price: '₹1,899', category: 'Shirts', image: 'https://plus.unsplash.com/premium_photo-1691622500876-2d32e983b132?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGluZW4lMjBCbGVuZHxlbnwwfHwwfHx8MA%3D%3D' },
     { id: 4, name: 'Classic Denim Jacket', price: '₹4,499', category: 'Jackets', image: 'https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?w=500&q=80' },
     { id: 5, name: 'Tailored Wool Suit', price: '₹12,999', category: 'Suits', image: 'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=500&q=80' },
     { id: 6, name: 'Cotton Polo T-Shirt', price: '₹1,299', category: 'T-Shirts', image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80' },
     { id: 7, name: 'Premium Office Trousers', price: '₹2,199', category: 'Trousers', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&q=80' },
     { id: 8, name: 'Winter Bomber Jacket', price: '₹5,999', category: 'Jackets', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80' },
+    { id: 9, name: 'Knitted Crewneck Sweater', price: '₹2,799', category: 'Knitwear', image: 'https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=500&q=80' },
+    { id: 10, name: 'Slim Fit Oxford Shirt', price: '₹1,999', category: 'Shirts', image: 'https://images.unsplash.com/photo-1734571163195-e437c521bc41?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fFNsaW0lMjBGaXQlMjBPeGZvcmQlMjBTaGlydHxlbnwwfHwwfHx8MA%3D%3D' },
+    { id: 11, name: 'Cargo Jogger Pants', price: '₹2,299', category: 'Trousers', image: 'https://images.unsplash.com/photo-1517438476312-10d79c077509?w=500&q=80' },
+    { id: 12, name: 'Suede Chelsea Boots', price: '₹4,999', category: 'Shoes', image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500&q=80' },
   ];
 
   return (
@@ -38,8 +42,8 @@ export default function MenCategoryPage() {
         </div>
       </section>
 
-      {/* 2. MAIN LAYOUT (Sidebar + Grid) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-10">
+      {/* 2. MAIN LAYOUT (Sidebar + Grid) - INCREASED MAX WIDTH TO 1400px */}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-10">
         
         {/* Mobile Filter Toggle Button */}
         <div className="lg:hidden flex justify-between items-center border-b border-gray-200 pb-4">
@@ -53,13 +57,13 @@ export default function MenCategoryPage() {
           </button>
         </div>
 
-        {/* Sidebar / Filters */}
-        <aside className={`${isFilterOpen ? 'block' : 'hidden'} lg:block w-full lg:w-1/4 flex-shrink-0 space-y-8`}>
+        {/* Sidebar / Filters - NOW A FIXED WIDTH (w-64 / 256px) */}
+        <aside className={`${isFilterOpen ? 'block' : 'hidden'} lg:block w-full lg:w-64 flex-shrink-0 space-y-8`}>
           {/* Categories Filter */}
           <div>
             <h3 className="text-lg font-bold text-gray-900 mb-4 border-b border-gray-200 pb-2">Categories</h3>
             <ul className="space-y-3">
-              {['All', 'Shirts', 'T-Shirts', 'Trousers', 'Jackets', 'Suits'].map((item) => (
+              {['All', 'Shirts', 'T-Shirts', 'Trousers', 'Jackets', 'Suits', 'Shoes', 'Knitwear'].map((item) => (
                 <li key={item}>
                   <label className="flex items-center cursor-pointer group">
                     <input type="checkbox" className="form-checkbox h-5 w-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500 cursor-pointer" />
@@ -86,8 +90,8 @@ export default function MenCategoryPage() {
           </div>
         </aside>
 
-        {/* Product Grid Area */}
-        <main className="w-full lg:w-3/4">
+        {/* Product Grid Area - NOW TAKES UP REMAINING SPACE (flex-1) */}
+        <main className="flex-1">
           
           {/* Top Bar (Desktop) */}
           <div className="hidden lg:flex justify-between items-center mb-8 border-b border-gray-200 pb-4">
@@ -103,12 +107,12 @@ export default function MenCategoryPage() {
             </div>
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+          {/* Grid - NOW 4 COLUMNS ON XL SCREENS */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {mensProducts.map((product) => (
               <div key={product.id} className="group cursor-pointer">
                 {/* Image Container */}
-                <div className="relative w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden mb-4">
+                <div className="relative w-full h-[350px] bg-gray-100 rounded-lg overflow-hidden mb-4">
                   <img 
                     src={product.image} 
                     alt={product.name} 
