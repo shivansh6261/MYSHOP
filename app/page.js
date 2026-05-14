@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 export default function HomePage() {
   // MOCK DATA: Categories
+   
   const categories = [
     { name: 'Men', image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500&q=80', path: '/men' },
     { name: 'Women', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80', path: '/women' },
@@ -12,14 +13,14 @@ export default function HomePage() {
 
   // MOCK DATA: Featured Products with INR (₹) Pricing (Expanded to 8 items)
   const featuredProducts = [
-    { id: 1, name: 'Classic Emerald Polo', price: '₹3,499', image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80' },
-    { id: 2, name: 'Tailored Fit Chinos', price: '₹4,999', image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&q=80' },
-    { id: 3, name: 'Premium Linen Blend', price: '₹6,499', image: 'https://plus.unsplash.com/premium_photo-1691622500876-2d32e983b132?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGluZW4lMjBCbGVuZHxlbnwwfHwwfHx8MA%3D%3D' },
-    { id: 4, name: 'Urban Leather Jacket', price: '₹14,999', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80' },
-    { id: 5, name: 'Minimalist White Sneakers', price: '₹3,999', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&q=80' },
-    { id: 6, name: 'Silk Patterned Scarf', price: '₹1,299', image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=500&q=80' },
-    { id: 7, name: 'Oversized Cotton Tee', price: '₹1,499', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80' },
-    { id: 8, name: 'Suede Chelsea Boots', price: '₹5,999', image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500&q=80' },
+    { id: 'h1', name: 'Classic Emerald Polo', price: '₹3,499', image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80' },
+    { id: 'h2', name: 'Tailored Fit Chinos', price: '₹4,999', image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&q=80' },
+    { id: 'h3', name: 'Premium Linen Blend', price: '₹6,499', image: 'https://plus.unsplash.com/premium_photo-1691622500876-2d32e983b132?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGluZW4lMjBCbGVuZHxlbnwwfHwwfHx8MA%3D%3D' },
+    { id: 'h4', name: 'Urban Leather Jacket', price: '₹14,999', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80' },
+    { id: 'h5', name: 'Minimalist White Sneakers', price: '₹3,999', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&q=80' },
+    { id: 'h6', name: 'Silk Patterned Scarf', price: '₹1,299', image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=500&q=80' },
+    { id: 'h7', name: 'Oversized Cotton Tee', price: '₹1,499', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80' },
+    { id: 'h8', name: 'Suede Chelsea Boots', price: '₹5,999', image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500&q=80' },
   ];
 
   return (
@@ -51,7 +52,7 @@ export default function HomePage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
           {categories.map((category) => (
             <Link key={category.name} href={category.path} className="group flex flex-col items-center cursor-pointer">
-              <div className="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden mb-4 border-4 border-black-10 shadow-md group-hover:border-emerald-500 transition-all duration-300">
+              <div className="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden mb-4 border-4 border-black-1'h0' shadow-md group-hover:border-emerald-500 transition-all duration-300">
                 <img 
                   src={category.image} 
                   alt={category.name} 
@@ -109,7 +110,8 @@ export default function HomePage() {
                 />
                 {/* Quick Add Button */}
                 <div className="absolute bottom-4 left-0 right-0 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                  <button className="w-full bg-white text-gray-900 font-bold py-3 rounded shadow-lg hover:bg-emerald-600 hover:text-white transition-colors">
+                  <button 
+                   className="w-full bg-white text-gray-900 font-bold py-3 rounded shadow-lg hover:bg-emerald-600 hover:text-white transition-colors">
                     Quick Add
                   </button>
                 </div>
