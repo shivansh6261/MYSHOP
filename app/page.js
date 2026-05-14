@@ -28,9 +28,9 @@ export default function HomePage() {
       {/* 1. HERO BANNER */}
       <section className="relative w-full h-[70vh] bg-gray-900 flex items-center justify-center">
         <img 
-          src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1920&q=80" 
+          src="https://images.unsplash.com/photo-1586878602450-90660b1cd6b8?q=80&w=1147&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
           alt="Spring Collection" 
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          className="absolute inset-0 w-full h-full object-cover opacity-100"
         />
         <div className="relative z-10 text-center px-4">
           <h2 className="text-sm md:text-base text-emerald-300 font-bold tracking-widest uppercase mb-3">
@@ -51,7 +51,7 @@ export default function HomePage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
           {categories.map((category) => (
             <Link key={category.name} href={category.path} className="group flex flex-col items-center cursor-pointer">
-              <div className="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden mb-4 border-4 border-gray-50 shadow-md group-hover:border-emerald-500 transition-all duration-300">
+              <div className="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden mb-4 border-4 border-black-10 shadow-md group-hover:border-emerald-500 transition-all duration-300">
                 <img 
                   src={category.image} 
                   alt={category.name} 

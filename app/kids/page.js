@@ -2,24 +2,24 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-
+import { useCart } from '../../context/CartContext';
 export default function KidsCategoryPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
+ const { addToCart } = useCart();
   // MOCK DATA: Kids & Baby Products (Expanded to 12 items)
 const kidsProducts = [
-    { id: 1, name: 'Cotton Striped Onesie', price: '₹999', category: 'Infants', image: 'https://media.istockphoto.com/id/2226265303/photo/curious-baby-boy-smiling-while-playing-on-the-floor.webp?a=1&b=1&s=612x612&w=0&k=20&c=XRLLsxQb3GKABbqaIzsWgksH8rcGQV5RPx4msI_gDFw=' },
-    { id: 2, name: 'Girls Floral Sundress', price: '₹1,499', category: 'Girls', image: 'https://plus.unsplash.com/premium_photo-1677180777140-895e6bdda25e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEdpcmxzJTIwRmxvcmFsJTIwU3VuZHJlc3N8ZW58MHx8MHx8fDA%3D' },
-    { id: 3, name: 'Boys Graphic T-Shirt', price: '₹799', category: 'Boys', image: 'https://images.unsplash.com/photo-1630827223608-dcd7f69871be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fEJveXMlMjBHcmFwaGljJTIwVC1TaGlydHxlbnwwfHwwfHx8MA%3D%3D' },
-    { id: 4, name: 'Toddler Denim Overalls', price: '₹1,799', category: 'Unisex', image: 'https://images.unsplash.com/photo-1698939096910-5b9a8fec3425?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fFRvZGRsZXIlMjBEZW5pbSUyME92ZXJhbGxzfGVufDB8fDB8fHww' },
-    { id: 5, name: 'Winter Puffer Jacket', price: '₹2,499', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1503945438517-f65904a52ce6?auto=format&fit=crop&w=800&q=80' },
-    { id: 6, name: 'Knit Cardigan Sweater', price: '₹1,299', category: 'Girls', image: 'https://plus.unsplash.com/premium_photo-1671460921793-e5e99d795819?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8S25pdCUyMENhcmRpZ2FuJTIwU3dlYXRlcnxlbnwwfHwwfHx8MA%3D%3D' },
-    { id: 7, name: 'Boys Chino Shorts', price: '₹1,099', category: 'Boys', image: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80' },
-    { id: 8, name: 'Colorful Play Sneakers', price: '₹1,999', category: 'Shoes', image: 'https://images.unsplash.com/photo-1694026091737-10fdadf460ac?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Q29sb3JmdWwlMjBQbGF5JTIwU25lYWtlcnN8ZW58MHx8MHx8fDA%3D' },
-    { id: 9, name: 'Baby Knit Beanie', price: '₹499', category: 'Accessories', image: 'https://plus.unsplash.com/premium_photo-1681152385632-036d0fa367ca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEJhYnklMjBLbml0JTIwQmVhbmllfGVufDB8fDB8fHww' },
-    { id: 10, name: 'Toddler Rain Boots', price: '₹1,299', category: 'Shoes', image: 'https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&w=800&q=80' },
-    { id: 11, name: 'Girls Ruffle Top', price: '₹899', category: 'Girls', image: 'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=800&q=80' },
-    { id: 12, name: 'Boys Fleece Sweatpants', price: '₹1,199', category: 'Boys', image: 'https://images.unsplash.com/photo-1503919005314-30d93d07d823?auto=format&fit=crop&w=800&q=80' },
+    { id: 'k1', name: 'Cotton Striped Onesie', price: '₹999', category: 'Infants', image: 'https://media.istockphoto.com/id/2226265303/photo/curious-baby-boy-smiling-while-playing-on-the-floor.webp?a=1&b=1&s=612x612&w=0&k=20&c=XRLLsxQb3GKABbqaIzsWgksH8rcGQV5RPx4msI_gDFw=' },
+    { id: 'k2', name: 'Girls Floral Sundress', price: '₹1,499', category: 'Girls', image: 'https://plus.unsplash.com/premium_photo-1677180777140-895e6bdda25e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEdpcmxzJTIwRmxvcmFsJTIwU3VuZHJlc3N8ZW58MHx8MHx8fDA%3D' },
+    { id: 'k3', name: 'Boys Graphic T-Shirt', price: '₹799', category: 'Boys', image: 'https://images.unsplash.com/photo-1630827223608-dcd7f69871be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fEJveXMlMjBHcmFwaGljJTIwVC1TaGlydHxlbnwwfHwwfHx8MA%3D%3D' },
+    { id: 'k4', name: 'Toddler Denim Overalls', price: '₹1,799', category: 'Unisex', image: 'https://images.unsplash.com/photo-1698939096910-5b9a8fec3425?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fFRvZGRsZXIlMjBEZW5pbSUyME92ZXJhbGxzfGVufDB8fDB8fHww' },
+    { id: 'k5', name: 'Winter Puffer Jacket', price: '₹2,499', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1503945438517-f65904a52ce6?auto=format&fit=crop&w=800&q=80' },
+    { id: 'k6', name: 'Knit Cardigan Sweater', price: '₹1,299', category: 'Girls', image: 'https://plus.unsplash.com/premium_photo-1671460921793-e5e99d795819?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8S25pdCUyMENhcmRpZ2FuJTIwU3dlYXRlcnxlbnwwfHwwfHx8MA%3D%3D' },
+    { id: 'k7', name: 'Boys Chino Shorts', price: '₹1,099', category: 'Boys', image: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80' },
+    { id: 'k8', name: 'Colorful Play Sneakers', price: '₹1,999', category: 'Shoes', image: 'https://images.unsplash.com/photo-1694026091737-10fdadf460ac?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Q29sb3JmdWwlMjBQbGF5JTIwU25lYWtlcnN8ZW58MHx8MHx8fDA%3D' },
+    { id: 'k9', name: 'Baby Knit Beanie', price: '₹499', category: 'Accessories', image: 'https://plus.unsplash.com/premium_photo-1681152385632-036d0fa367ca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fEJhYnklMjBLbml0JTIwQmVhbmllfGVufDB8fDB8fHww' },
+    { id: 'k10', name: 'Toddler Rain Boots', price: '₹1,299', category: 'Shoes', image: 'https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&w=800&q=80' },
+    { id: 'k11', name: 'Girls Ruffle Top', price: '₹899', category: 'Girls', image: 'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?auto=format&fit=crop&w=800&q=80' },
+    { id: 'k12', name: 'Boys Fleece Sweatpants', price: '₹1,199', category: 'Boys', image: 'https://images.unsplash.com/photo-1503919005314-30d93d07d823?auto=format&fit=crop&w=800&q=80' },
   ];
 
   return (
@@ -139,7 +139,13 @@ const kidsProducts = [
                   </div>
                   {/* Quick Add Button */}
                   <div className="absolute bottom-4 left-0 right-0 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <button className="w-full bg-emerald-600 text-white font-bold py-3 rounded shadow-lg hover:bg-emerald-700 transition-colors">
+                     <button
+                      onClick={(e) => {
+                        e.preventDefault(); // Prevents link clicks if wrapped in an <a> tag
+                        addToCart(product); // Adds this specific product to the cart!
+                      }}
+                      className="w-full bg-emerald-600 text-white font-bold py-3 rounded shadow-lg hover:bg-emerald-700 transition-colors"
+                    >
                       Add to Cart
                     </button>
                   </div>

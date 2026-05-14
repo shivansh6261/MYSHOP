@@ -2,24 +2,24 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-
+import { useCart } from '../../context/CartContext';
 export default function WomenCategoryPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
+ const { addToCart } = useCart();
   // MOCK DATA: Women's Products (Expanded to 12 items)
   const womensProducts = [
-    { id: 1, name: 'Floral Summer Dress', price: '₹2,999', category: 'Dresses', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80' },
-    { id: 2, name: 'Premium Silk Blouse', price: '₹1,899', category: 'Tops', image: 'https://images.unsplash.com/photo-1588117260148-b47818741c74?auto=format&fit=crop&w=800&q=80' },
-    { id: 3, name: 'High-Waisted Trousers', price: '₹2,499', category: 'Bottoms', image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=80' },
-    { id: 4, name: 'Tailored Wool Blazer', price: '₹4,599', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&w=800&q=80' },
-    { id: 5, name: 'Pleated Midi Skirt', price: '₹1,999', category: 'Bottoms', image: 'https://plus.unsplash.com/premium_photo-1675186049366-64a655f8f537?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGZhc2hpb258ZW58MHx8MHx8fDA%3D' },
-    { id: 6, name: 'Chunky Knit Sweater', price: '₹2,199', category: 'Tops', image: 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?auto=format&fit=crop&w=800&q=80' },
-    { id: 7, name: 'Elegant Evening Gown', price: '₹8,999', category: 'Dresses', image: 'https://images.unsplash.com/photo-1559034750-cdab70a66b8e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8RWxlZ2FudCUyMEV2ZW5pbmclMjBHb3dufGVufDB8fDB8fHww' },
-    { id: 8, name: 'Classic Denim Jacket', price: '₹3,499', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1523359346063-d879354c0ea5?auto=format&fit=crop&w=800&q=80' },
-    { id: 9, name: 'Cashmere Turtleneck', price: '₹3,299', category: 'Tops', image: 'https://media.istockphoto.com/id/108129042/photo/young-woman-wearing-cashmere-sweater.jpg?s=612x612&w=0&k=20&c=3uxKoRTcG-fGhCLImPZXiGA51z_njHmBricUqbmW7HA=' },
-    { id: 10, name: 'Wide-Leg Linen Pants', price: '₹2,799', category: 'Bottoms', image: 'https://images.unsplash.com/photo-1509319117193-57bab727e09d?auto=format&fit=crop&w=800&q=80' },
-    { id: 11, name: 'Satin Slip Dress', price: '₹3,599', category: 'Dresses', image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80' },
-    { id: 12, name: 'Double-Breasted Trench Coat', price: '₹6,999', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1742672725140-59b8e7402958?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fERvdWJsZS1CcmVhc3RlZCUyMFRyZW5jaCUyMENvYXR8ZW58MHx8MHx8fDA%3D' },
+    { id: 'w1', name: 'Floral Summer Dress', price: '₹2,999', category: 'Dresses', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80' },
+    { id: 'w2', name: 'Premium Silk Blouse', price: '₹1,899', category: 'Tops', image: 'https://images.unsplash.com/photo-1588117260148-b47818741c74?auto=format&fit=crop&w=800&q=80' },
+    { id: 'w3', name: 'High-Waisted Trousers', price: '₹2,499', category: 'Bottoms', image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=80' },
+    { id: 'w4', name: 'Tailored Wool Blazer', price: '₹4,599', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&w=800&q=80' },
+    { id: 'w5', name: 'Pleated Midi Skirt', price: '₹1,999', category: 'Bottoms', image: 'https://plus.unsplash.com/premium_photo-1675186049366-64a655f8f537?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGZhc2hpb258ZW58MHx8MHx8fDA%3D' },
+    { id: 'w6', name: 'Chunky Knit Sweater', price: '₹2,199', category: 'Tops', image: 'https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?auto=format&fit=crop&w=800&q=80' },
+    { id: 'w7', name: 'Elegant Evening Gown', price: '₹8,999', category: 'Dresses', image: 'https://images.unsplash.com/photo-1559034750-cdab70a66b8e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8RWxlZ2FudCUyMEV2ZW5pbmclMjBHb3dufGVufDB8fDB8fHww' },
+    { id: 'w8', name: 'Classic Denim Jacket', price: '₹3,499', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1523359346063-d879354c0ea5?auto=format&fit=crop&w=800&q=80' },
+    { id: 'w9', name: 'Cashmere Turtleneck', price: '₹3,299', category: 'Tops', image: 'https://media.istockphoto.com/id/108129042/photo/young-woman-wearing-cashmere-sweater.jpg?s=612x612&w=0&k=20&c=3uxKoRTcG-fGhCLImPZXiGA51z_njHmBricUqbmW7HA=' },
+    { id: 'w10', name: 'Wide-Leg Linen Pants', price: '₹2,799', category: 'Bottoms', image: 'https://images.unsplash.com/photo-1509319117193-57bab727e09d?auto=format&fit=crop&w=800&q=80' },
+    { id: 'w12', name: 'Double-Breasted Trench Coat', price: '₹6,999', category: 'Outerwear', image: 'https://images.unsplash.com/photo-1742672725140-59b8e7402958?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fERvdWJsZS1CcmVhc3RlZCUyMFRyZW5jaCUyMENvYXR8ZW58MHx8MHx8fDA%3D' },
+    { id: 'w11', name: 'Satin Slip Dress', price: '₹3,599', category: 'Dresses', image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80' },
   ];
 
   return (
@@ -124,7 +124,13 @@ export default function WomenCategoryPage() {
                   </div>
                   {/* Quick Add Button */}
                   <div className="absolute bottom-4 left-0 right-0 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <button className="w-full bg-emerald-600 text-white font-bold py-3 rounded shadow-lg hover:bg-emerald-700 transition-colors">
+                      <button
+                      onClick={(e) => {
+                        e.preventDefault(); // Prevents link clicks if wrapped in an <a> tag
+                        addToCart(product); // Adds this specific product to the cart!
+                      }}
+                      className="w-full bg-emerald-600 text-white font-bold py-3 rounded shadow-lg hover:bg-emerald-700 transition-colors"
+                    >
                       Add to Cart
                     </button>
                   </div>

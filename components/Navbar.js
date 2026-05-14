@@ -3,10 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useCart } from '../context/CartContext'; // <-- Import the cart hook
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { totalItems } = useCart(); // <-- Grab totalItems from Context
 
   const links = [
     { name: 'Home', path: '/' },
@@ -46,14 +48,28 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* 3. Login/Signup (Desktop Right) */}
-          <div className="hidden md:flex items-center space-x-4">
+          {/* 3. Login, Signup & CART (Desktop Right) */}
+          <div className="hidden md:flex items-center space-x-6">
             <Link 
               href="/login" 
               className="text-sm font-medium text-gray-600 hover:text-emerald-600 transition"
             >
               Log in
             </Link>
+            
+            {/* --- CART ICON WITH BADGE --- */}
+            <Link href="/cart" className="relative p-2 text-gray-600 hover:text-emerald-600 transition">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              {/* Only show the red/green badge if there is at least 1 item */}
+              {totalItems > 0 && (
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-emerald-600 rounded-full">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+
             <Link 
               href="/signup" 
               className="bg-emerald-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-emerald-700 transition shadow-md hover:shadow-lg"
@@ -62,8 +78,22 @@ export const Navbar = () => {
             </Link>
           </div>
 
-          {/* 4. Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          {/* 4. Mobile Menu Button & Mobile Cart Icon */}
+          <div className="md:hidden flex items-center space-x-4">
+            
+            {/* Mobile Cart Icon */}
+            <Link href="/cart" className="relative p-2 text-gray-600 hover:text-emerald-600 transition">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              {totalItems > 0 && (
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-emerald-600 rounded-full">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+
+            {/* Hamburger Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-600 hover:text-emerald-600 focus:outline-none p-2"
@@ -81,7 +111,7 @@ export const Navbar = () => {
       </div>
 
       {/* Mobile Drawer */}
-      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden bg-white border-t border-emerald-50`}>
+      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden bg-white border-t border-emerald-50 shadow-lg absolute w-full`}>
         <div className="px-4 pt-2 pb-6 space-y-2">
           {links.map((link) => (
             <Link

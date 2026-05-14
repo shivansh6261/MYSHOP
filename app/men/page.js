@@ -2,34 +2,36 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useCart } from '../../context/CartContext';
 
 export default function MenCategoryPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const { addToCart } = useCart();
 
   // MOCK DATA: Men's Products (12 items)
   const mensProducts = [
-    { id: 1, name: 'Emerald Formal Shirt', price: '₹2,499', category: 'Shirts', image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=500&q=80' },
-    { id: 2, name: 'Slim Fit Chinos', price: '₹2,999', category: 'Trousers', image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&q=80' },
-    { id: 3, name: 'Casual Linen Blend', price: '₹1,899', category: 'Shirts', image: 'https://plus.unsplash.com/premium_photo-1691622500876-2d32e983b132?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGluZW4lMjBCbGVuZHxlbnwwfHwwfHx8MA%3D%3D' },
-    { id: 4, name: 'Classic Denim Jacket', price: '₹4,499', category: 'Jackets', image: 'https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?w=500&q=80' },
-    { id: 5, name: 'Tailored Wool Suit', price: '₹12,999', category: 'Suits', image: 'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=500&q=80' },
-    { id: 6, name: 'Cotton Polo T-Shirt', price: '₹1,299', category: 'T-Shirts', image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80' },
-    { id: 7, name: 'Premium Office Trousers', price: '₹2,199', category: 'Trousers', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&q=80' },
-    { id: 8, name: 'Winter Bomber Jacket', price: '₹5,999', category: 'Jackets', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80' },
-    { id: 9, name: 'Knitted Crewneck Sweater', price: '₹2,799', category: 'Knitwear', image: 'https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=500&q=80' },
-    { id: 10, name: 'Slim Fit Oxford Shirt', price: '₹1,999', category: 'Shirts', image: 'https://images.unsplash.com/photo-1734571163195-e437c521bc41?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fFNsaW0lMjBGaXQlMjBPeGZvcmQlMjBTaGlydHxlbnwwfHwwfHx8MA%3D%3D' },
-    { id: 11, name: 'Cargo Jogger Pants', price: '₹2,299', category: 'Trousers', image: 'https://images.unsplash.com/photo-1517438476312-10d79c077509?w=500&q=80' },
-    { id: 12, name: 'Suede Chelsea Boots', price: '₹4,999', category: 'Shoes', image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500&q=80' },
+    { id: 'm1', name: 'Emerald Formal Shirt', price: '₹2,499', category: 'Shirts', image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=500&q=80' },
+    { id: 'm2', name: 'Slim Fit Chinos', price: '₹2,999', category: 'Trousers', image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&q=80' },
+    { id: 'm3', name: 'Casual Linen Blend', price: '₹1,899', category: 'Shirts', image: 'https://plus.unsplash.com/premium_photo-1691622500876-2d32e983b132?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8TGluZW4lMjBCbGVuZHxlbnwwfHwwfHx8MA%3D%3D' },
+    { id: 'm4', name: 'Classic Denim Jacket', price: '₹4,499', category: 'Jackets', image: 'https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?w=500&q=80' },
+    { id: 'm5', name: 'Tailored Wool Suit', price: '₹12,999', category: 'Suits', image: 'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=500&q=80' },
+    { id: 'm6', name: 'Cotton Polo T-Shirt', price: '₹1,299', category: 'T-Shirts', image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80' },
+    { id: 'm7', name: 'Premium Office Trousers', price: '₹2,199', category: 'Trousers', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=500&q=80' },
+    { id: 'm8', name: 'Winter Bomber Jacket', price: '₹5,999', category: 'Jackets', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80' },
+    { id: 'm9', name: 'Knitted Crewneck Sweater', price: '₹2,799', category: 'Knitwear', image: 'https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=500&q=80' },
+    { id: 'm10', name: 'Slim Fit Oxford Shirt', price: '₹1,999', category: 'Shirts', image: 'https://images.unsplash.com/photo-1734571163195-e437c521bc41?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fFNsaW0lMjBGaXQlMjBPeGZvcmQlMjBTaGlydHxlbnwwfHwwfHx8MA%3D%3D' },
+    { id: 'm11', name: 'Cargo Jogger Pants', price: '₹2,299', category: 'Trousers', image: 'https://images.unsplash.com/photo-1517438476312-10d79c077509?w=500&q=80' },
+    { id: 'm12', name: 'Suede Chelsea Boots', price: '₹4,999', category: 'Shoes', image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500&q=80' },
   ];
 
   return (
     <div className="min-h-screen bg-white">
-      
+
       {/* 1. CATEGORY HERO BANNER */}
       <section className="relative w-full h-[40vh] bg-gray-900 flex items-center justify-center">
-        <img 
-          src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=1920&q=80" 
-          alt="Men's Collection" 
+        <img
+          src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=1920&q=80"
+          alt="Men's Collection"
           className="absolute inset-0 w-full h-full object-cover opacity-50"
         />
         <div className="relative z-10 text-center px-4">
@@ -44,11 +46,11 @@ export default function MenCategoryPage() {
 
       {/* 2. MAIN LAYOUT (Sidebar + Grid) - INCREASED MAX WIDTH TO 1400px */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-10">
-        
+
         {/* Mobile Filter Toggle Button */}
         <div className="lg:hidden flex justify-between items-center border-b border-gray-200 pb-4">
           <span className="font-bold text-gray-900">{mensProducts.length} Products</span>
-          <button 
+          <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
             className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-md font-medium text-gray-700"
           >
@@ -92,7 +94,7 @@ export default function MenCategoryPage() {
 
         {/* Product Grid Area - NOW TAKES UP REMAINING SPACE (flex-1) */}
         <main className="flex-1">
-          
+
           {/* Top Bar (Desktop) */}
           <div className="hidden lg:flex justify-between items-center mb-8 border-b border-gray-200 pb-4">
             <span className="text-gray-500">Showing all {mensProducts.length} results</span>
@@ -113,9 +115,9 @@ export default function MenCategoryPage() {
               <div key={product.id} className="group cursor-pointer">
                 {/* Image Container */}
                 <div className="relative w-full h-[350px] bg-gray-100 rounded-lg overflow-hidden mb-4">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
+                  <img
+                    src={product.image}
+                    alt={product.name}
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
                   />
                   {/* Category Badge */}
@@ -124,7 +126,13 @@ export default function MenCategoryPage() {
                   </div>
                   {/* Quick Add Button */}
                   <div className="absolute bottom-4 left-0 right-0 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <button className="w-full bg-emerald-600 text-white font-bold py-3 rounded shadow-lg hover:bg-emerald-700 transition-colors">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault(); // Prevents link clicks if wrapped in an <a> tag
+                        addToCart(product); // Adds this specific product to the cart!
+                      }}
+                      className="w-full bg-emerald-600 text-white font-bold py-3 rounded shadow-lg hover:bg-emerald-700 transition-colors"
+                    >
                       Add to Cart
                     </button>
                   </div>

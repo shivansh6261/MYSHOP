@@ -2,24 +2,24 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-
+import { useCart } from '../../context/CartContext';
 export default function AccessoriesCategoryPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
+ const { addToCart } = useCart();
   // MOCK DATA: Accessories Products (Expanded to 12 items with reliable URLs)
   const accessoriesProducts = [
-    { id: 1, name: 'Classic Chronograph Watch', price: '₹5,999', category: 'Watches', image: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=80' },
-    { id: 2, name: 'Polarized Aviator Sunglasses', price: '₹2,499', category: 'Eyewear', image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80' },
-    { id: 3, name: 'Genuine Leather Belt', price: '₹1,499', category: 'Leather Goods', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80' },
-    { id: 4, name: 'Minimalist Gold Pendant', price: '₹3,999', category: 'Jewelry', image: 'https://images.unsplash.com/photo-1599643478524-fb66f70d00ea?auto=format&fit=crop&w=800&q=80' },
-    { id: 5, name: 'Premium Canvas Tote Bag', price: '₹2,199', category: 'Bags', image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80' },
-    { id: 6, name: 'Wool Fedora Hat', price: '₹1,899', category: 'Headwear', image: 'https://images.unsplash.com/photo-1514327605112-b887c0e61c0a?auto=format&fit=crop&w=800&q=80' },
-    { id: 7, name: 'Silk Patterned Scarf', price: '₹1,299', category: 'Scarves', image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=800&q=80' },
-    { id: 8, name: 'Woven Leather Wallet', price: '₹1,599', category: 'Leather Goods', image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=800&q=80' },
-    { id: 9, name: 'Silver Link Bracelet', price: '₹2,499', category: 'Jewelry', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80' },
-    { id: 10, name: 'Leather Crossbody Bag', price: '₹4,599', category: 'Bags', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80' },
-    { id: 11, name: 'Retro Square Sunglasses', price: '₹1,899', category: 'Eyewear', image: 'https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=800&q=80' },
-    { id: 12, name: 'Minimalist Leather Watch', price: '₹4,299', category: 'Watches', image: 'https://images.unsplash.com/photo-1758887953059-ca6f8e454207?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fE1pbmltYWxpc3QlMjBMZWF0aGVyJTIwV2F0Y2h8ZW58MHx8MHx8fDA%3D' },
+    { id: 'a1', name: 'Classic Chronograph Watch', price: '₹5,999', category: 'Watches', image: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a2', name: 'Polarized Aviator Sunglasses', price: '₹2,499', category: 'Eyewear', image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a3', name: 'Genuine Leather Belt', price: '₹1,499', category: 'Leather Goods', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a4', name: 'Minimalist Gold Pendant', price: '₹3,999', category: 'Jewelry', image: 'https://images.unsplash.com/photo-1599643478524-fb66f70d00ea?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a5', name: 'Premium Canvas Tote Bag', price: '₹2,199', category: 'Bags', image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a6', name: 'Wool Fedora Hat', price: '₹1,899', category: 'Headwear', image: 'https://images.unsplash.com/photo-1514327605112-b887c0e61c0a?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a7', name: 'Silk Patterned Scarf', price: '₹1,299', category: 'Scarves', image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a8', name: 'Woven Leather Wallet', price: '₹1,599', category: 'Leather Goods', image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a9', name: 'Silver Link Bracelet', price: '₹2,499', category: 'Jewelry', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a10', name: 'Leather Crossbody Bag', price: '₹4,599', category: 'Bags', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a11', name: 'Retro Square Sunglasses', price: '₹1,899', category: 'Eyewear', image: 'https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=800&q=80' },
+    { id: 'a12', name: 'Minimalist Leather Watch', price: '₹4,299', category: 'Watches', image: 'https://images.unsplash.com/photo-1758887953059-ca6f8e454207?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fE1pbmltYWxpc3QlMjBMZWF0aGVyJTIwV2F0Y2h8ZW58MHx8MHx8fDA%3D' },
   ];
 
   return (
@@ -124,7 +124,13 @@ export default function AccessoriesCategoryPage() {
                   </div>
                   {/* Quick Add Button */}
                   <div className="absolute bottom-4 left-0 right-0 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <button className="w-full bg-emerald-600 text-white font-bold py-3 rounded shadow-lg hover:bg-emerald-700 transition-colors">
+                   <button
+                      onClick={(e) => {
+                        e.preventDefault(); // Prevents link clicks if wrapped in an <a> tag
+                        addToCart(product); // Adds this specific product to the cart!
+                      }}
+                      className="w-full bg-emerald-600 text-white font-bold py-3 rounded shadow-lg hover:bg-emerald-700 transition-colors"
+                    >
                       Add to Cart
                     </button>
                   </div>
