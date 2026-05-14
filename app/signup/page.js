@@ -1,181 +1,93 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { supabase } from '../../lib/superbase';
+import toast from 'react-hot-toast';
 
 export default function SignupPage() {
-    // Step Management
-    const [step, setStep] = useState(1);
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-    // Form State
-    const [formData, setFormData] = useState({
-        name: "",
-        contact: "", // Holds either Email or Phone
-        address: "",
-        password: "",
-        verificationCode: "",
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // 1. Send data to Supabase
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
     });
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value });
-    };
+    // 2. Handle Errors
+    if (error) {
+      toast.error(error.message);
+      setIsLoading(false);
+      return;
+    }
 
-    const handleInitialSubmit = (e) => {
-        e.preventDefault();
-        // Here you would trigger your backend API to send the OTP/Email verification
-        console.log("Sending verification code to:", formData.contact);
-        setStep(2); // Move to verification step
-    };
+    // 3. Success!
+    toast.success('Account created successfully!');
+    router.push('/login'); // Send them to the login page
+    setIsLoading(false);
+  };
 
-    const handleVerificationSubmit = (e) => {
-        e.preventDefault();
-        // Here you would verify the code and actually create the user account
-        console.log("Creating account with data:", formData);
-        alert("Account verified and created successfully!");
-    };
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl font-black text-gray-900 tracking-tight">
+          Create a new account
+        </h2>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Or{' '}
+          <Link href="/login" className="font-medium text-emerald-600 hover:text-emerald-500 transition">
+            sign in to your existing account
+          </Link>
+        </p>
+      </div>
 
-    return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-white px-4 sm:px-6 lg:px-8">
-            <div className="w-full max-w-md">
-                
-                {/* Header Section */}
-                <div className="mb-10 text-center">
-                    <Link href="/" className="text-3xl font-black text-emerald-600 tracking-tighter mb-6 inline-block">
-                        MY<span className="text-gray-800">SHOP</span>
-                    </Link>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        {step === 1 ? "Create an account" : "Verify your account"}
-                    </h1>
-                    <p className="text-gray-500">
-                        {step === 1 
-                            ? "Join us today to get started." 
-                            : `We sent a 6-digit code to ${formData.contact}`}
-                    </p>
-                </div>
-
-                {/* STEP 1: Main Signup Form */}
-                {step === 1 && (
-                    <form onSubmit={handleInitialSubmit} className="space-y-5">
-                        
-                        {/* Name Input */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="name">
-                                Full Name
-                            </label>
-                            <input
-                                id="name"
-                                type="text"
-                                value={formData.name}
-                                onChange={handleChange}
-                                placeholder="John Doe"
-                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition-all outline-none"
-                                required
-                            />
-                        </div>
-
-                        {/* Email or Phone Input */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="contact">
-                                Email or Phone Number
-                            </label>
-                            <input
-                                id="contact"
-                                type="text"
-                                value={formData.contact}
-                                onChange={handleChange}
-                                placeholder="name@example.com or +1 234 567 890"
-                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition-all outline-none"
-                                required
-                            />
-                        </div>
-
-                        {/* Address Input */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="address">
-                                Shipping Address
-                            </label>
-                            <textarea
-                                id="address"
-                                value={formData.address}
-                                onChange={handleChange}
-                                placeholder="123 Main St, City, Country"
-                                rows="2"
-                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition-all outline-none resize-none"
-                                required
-                            ></textarea>
-                        </div>
-
-                        {/* Password Input */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2" htmlFor="password">
-                                Password
-                            </label>
-                            <input
-                                id="password"
-                                type="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                placeholder="Create a strong password"
-                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition-all outline-none"
-                                minLength="8"
-                                required
-                            />
-                        </div>
-
-                        {/* Submit Button (Triggers Step 2) */}
-                        <button
-                            type="submit"
-                            className="w-full mt-4 bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200 transition-all"
-                        >
-                            Continue to Verification
-                        </button>
-                    </form>
-                )}
-
-                {/* STEP 2: Verification Form */}
-                {step === 2 && (
-                    <form onSubmit={handleVerificationSubmit} className="space-y-6 text-center">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-4" htmlFor="verificationCode">
-                                Enter Verification Code
-                            </label>
-                            <input
-                                id="verificationCode"
-                                type="text"
-                                value={formData.verificationCode}
-                                onChange={handleChange}
-                                placeholder="000000"
-                                maxLength="6"
-                                className="w-full text-center tracking-widest text-2xl font-bold px-4 py-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition-all outline-none"
-                                required
-                            />
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="w-full bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200 transition-all"
-                        >
-                            Verify & Create Account
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() => setStep(1)}
-                            className="text-sm font-medium text-emerald-600 hover:text-emerald-500 mt-4 inline-block"
-                        >
-                            &larr; Wrong contact info? Go back
-                        </button>
-                    </form>
-                )}
-
-                {/* Footer */}
-                <p className="mt-10 text-center text-sm text-gray-600">
-                    Already have an account?{" "}
-                    <Link href="/login" className="font-bold text-emerald-600 hover:text-emerald-500">
-                        Log in
-                    </Link>
-                </p>
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow-sm border border-gray-100 sm:rounded-xl sm:px-10">
+          <form className="space-y-6" onSubmit={handleSignup}>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Email address</label>
+              <div className="mt-1">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
+                />
+              </div>
             </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <div className="mt-1">
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none disabled:opacity-50 transition"
+            >
+              {isLoading ? 'Creating account...' : 'Sign up'}
+            </button>
+          </form>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
