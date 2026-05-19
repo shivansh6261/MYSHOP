@@ -7,9 +7,20 @@ import { useCart } from '../../context/CartContext';
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity } = useCart();
 
-  // Helper function to convert price strings like "₹2,499" into actual numbers (2499) for math
+  // Helper function to convert price safely into actual numbers
   const parsePrice = (priceStr) => {
-    return Number(priceStr.replace(/[^\d]/g, ''));
+    // 1. If it's already a number, just return it immediately
+    if (typeof priceStr === 'number') {
+      return priceStr;
+    }
+
+    // 2. If it's empty or missing, return 0 instead of crashing
+    if (!priceStr) {
+      return 0;
+    }
+
+    // 3. If it's a string (like "₹2,499"), convert to string explicitly and strip symbols
+    return Number(String(priceStr).replace(/[^\d.]/g, ''));
   };
 
   // Calculate Totals
@@ -47,7 +58,7 @@ export default function CartPage() {
         <h1 className="text-4xl font-black text-gray-900 tracking-tight mb-10">Shopping Cart</h1>
 
         <div className="flex flex-col lg:flex-row gap-12">
-          
+
           {/* LEFT SIDE: Cart Items List */}
           <div className="w-full lg:w-2/3 space-y-6">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
@@ -74,7 +85,7 @@ export default function CartPage() {
                       <div className="flex justify-between items-center mt-4 sm:mt-0">
                         {/* Quantity Selector */}
                         <div className="flex items-center border border-gray-200 rounded-lg">
-                          <button 
+                          <button
                             onClick={() => updateQuantity(item.id, -1)}
                             className="px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-emerald-600 transition"
                           >
@@ -83,7 +94,7 @@ export default function CartPage() {
                           <span className="px-4 py-2 font-medium text-gray-900 border-x border-gray-200">
                             {item.quantity}
                           </span>
-                          <button 
+                          <button
                             onClick={() => updateQuantity(item.id, 1)}
                             className="px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-emerald-600 transition"
                           >
@@ -92,7 +103,7 @@ export default function CartPage() {
                         </div>
 
                         {/* Remove Button */}
-                        <button 
+                        <button
                           onClick={() => removeFromCart(item.id)}
                           className="text-sm font-semibold text-red-500 hover:text-red-700 hover:underline transition"
                         >
@@ -110,7 +121,7 @@ export default function CartPage() {
           <div className="w-full lg:w-1/3">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 sticky top-24">
               <h2 className="text-xl font-bold text-gray-900 mb-6 pb-4 border-b border-gray-100">Order Summary</h2>
-              
+
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
@@ -145,7 +156,7 @@ export default function CartPage() {
               <button className="w-full bg-emerald-600 text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:bg-emerald-700 hover:shadow-xl transition-all duration-300">
                 Checkout Now
               </button>
-              
+
               <div className="mt-6 flex justify-center items-center gap-2 text-gray-500 text-sm">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 Secure Checkout
