@@ -1,9 +1,15 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
+import { useCart } from '../context/CartContext';
+import toast from 'react-hot-toast'; // Optional: for a nice pop-up notification
 
 export default function HomePage() {
+  // 1. Bring in the cart function
+  const { addToCart } = useCart();
+
   // MOCK DATA: Categories
-   
   const categories = [
     { name: 'Men', image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500&q=80', path: '/men' },
     { name: 'Women', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80', path: '/women' },
@@ -11,7 +17,7 @@ export default function HomePage() {
     { name: 'Accessories', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=80', path: '/accessories' },
   ];
 
-  // MOCK DATA: Featured Products with INR (₹) Pricing (Expanded to 8 items)
+  // MOCK DATA: Featured Products
   const featuredProducts = [
     { id: 'h1', name: 'Classic Emerald Polo', price: '₹3,499', image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&q=80' },
     { id: 'h2', name: 'Tailored Fit Chinos', price: '₹4,999', image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500&q=80' },
@@ -22,6 +28,18 @@ export default function HomePage() {
     { id: 'h7', name: 'Oversized Cotton Tee', price: '₹1,499', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80' },
     { id: 'h8', name: 'Suede Chelsea Boots', price: '₹5,999', image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500&q=80' },
   ];
+
+  // 2. Add the handler function
+  const handleQuickAdd = (product) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      quantity: 1
+    });
+    toast.success(`${product.name} added to cart!`);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -108,9 +126,10 @@ export default function HomePage() {
                   alt={product.name} 
                   className="w-full h-full object-cover object-center group-hover:opacity-80 transition-opacity duration-300"
                 />
-                {/* Quick Add Button */}
+                {/* 3. Wire up the Quick Add Button */}
                 <div className="absolute bottom-4 left-0 right-0 px-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                   <button 
+                   onClick={() => handleQuickAdd(product)}
                    className="w-full bg-white text-gray-900 font-bold py-3 rounded shadow-lg hover:bg-emerald-600 hover:text-white transition-colors">
                     Quick Add
                   </button>
@@ -119,7 +138,6 @@ export default function HomePage() {
               {/* Product Info */}
               <div>
                 <h3 className="text-sm text-gray-700 font-medium">{product.name}</h3>
-                {/* Updated INR Price */}
                 <p className="text-lg font-bold text-gray-900 mt-1">{product.price}</p>
               </div>
             </div>

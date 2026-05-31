@@ -1,25 +1,21 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useCart } from '../../context/CartContext';
+import { supabase } from '../../lib/superbase';
+import toast from 'react-hot-toast';
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity } = useCart();
+  const router = useRouter();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   // Helper function to convert price safely into actual numbers
   const parsePrice = (priceStr) => {
-    // 1. If it's already a number, just return it immediately
-    if (typeof priceStr === 'number') {
-      return priceStr;
-    }
-
-    // 2. If it's empty or missing, return 0 instead of crashing
-    if (!priceStr) {
-      return 0;
-    }
-
-    // 3. If it's a string (like "₹2,499"), convert to string explicitly and strip symbols
+    if (typeof priceStr === 'number') return priceStr;
+    if (!priceStr) return 0;
     return Number(String(priceStr).replace(/[^\d.]/g, ''));
   };
 
@@ -28,12 +24,31 @@ export default function CartPage() {
   const shipping = subtotal > 5000 ? 0 : 499; // Free shipping on orders over ₹5,000
   const orderTotal = subtotal + shipping;
 
-  // FORMATTER: Converts number back to Indian Rupee format (e.g., 2499 -> ₹2,499)
+  // FORMATTER: Converts number back to Indian Rupee format
   const formatCurrency = (num) => {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(num);
   };
 
-  // EMPTY STATE: What to show if the cart has no items
+  // 🚀 SMART CHECKOUT HANDLER
+  // 🚀 SMART CHECKOUT HANDLER
+  const handleCheckout = async () => {
+    setIsCheckingOut(true);
+
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (session?.user) {
+      router.push('/checkout');
+    } else {
+      toast.error('Please log in or create an account to proceed! 🔒', { duration: 4000 });
+      // 👇 ADD THIS: Tell the signup page where to send them next!
+      router.push('/signup?redirect=/checkout');
+    }
+
+    setIsCheckingOut(false);
+  };
+
+
+  // EMPTY STATE
   if (cart.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4">
@@ -51,7 +66,7 @@ export default function CartPage() {
     );
   }
 
-  // FILLED STATE: What to show when items are in the cart
+  // FILLED STATE
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,12 +80,10 @@ export default function CartPage() {
               <ul className="divide-y divide-gray-100">
                 {cart.map((item) => (
                   <li key={item.id} className="py-6 flex flex-col sm:flex-row gap-6">
-                    {/* Product Image */}
                     <div className="w-full sm:w-32 h-32 flex-shrink-0 bg-gray-100 rounded-xl overflow-hidden">
                       <img src={item.image} alt={item.name} className="w-full h-full object-cover object-center" />
                     </div>
 
-                    {/* Product Details */}
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
                         <div className="flex justify-between items-start mb-1">
@@ -78,35 +91,17 @@ export default function CartPage() {
                           <p className="text-lg font-black text-gray-900 ml-4">{formatCurrency(parsePrice(item.price) * item.quantity)}</p>
                         </div>
                         <p className="text-sm text-gray-500">{item.category}</p>
-                        <p className="text-sm text-gray-500 mt-1">Price: {item.price}</p>
+                        <p className="text-sm text-gray-500 mt-1">Price: {formatCurrency(parsePrice(item.price))}</p>
                       </div>
 
-                      {/* Controls: Quantity & Remove */}
                       <div className="flex justify-between items-center mt-4 sm:mt-0">
-                        {/* Quantity Selector */}
                         <div className="flex items-center border border-gray-200 rounded-lg">
-                          <button
-                            onClick={() => updateQuantity(item.id, -1)}
-                            className="px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-emerald-600 transition"
-                          >
-                            &minus;
-                          </button>
-                          <span className="px-4 py-2 font-medium text-gray-900 border-x border-gray-200">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() => updateQuantity(item.id, 1)}
-                            className="px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-emerald-600 transition"
-                          >
-                            &#43;
-                          </button>
+                          <button onClick={() => updateQuantity(item.id, -1)} className="px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-emerald-600 transition">&minus;</button>
+                          <span className="px-4 py-2 font-medium text-gray-900 border-x border-gray-200">{item.quantity}</span>
+                          <button onClick={() => updateQuantity(item.id, 1)} className="px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-emerald-600 transition">&#43;</button>
                         </div>
 
-                        {/* Remove Button */}
-                        <button
-                          onClick={() => removeFromCart(item.id)}
-                          className="text-sm font-semibold text-red-500 hover:text-red-700 hover:underline transition"
-                        >
+                        <button onClick={() => removeFromCart(item.id)} className="text-sm font-semibold text-red-500 hover:text-red-700 hover:underline transition">
                           Remove
                         </button>
                       </div>
@@ -153,8 +148,13 @@ export default function CartPage() {
                 )}
               </div>
 
-              <button className="w-full bg-emerald-600 text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:bg-emerald-700 hover:shadow-xl transition-all duration-300">
-                Checkout Now
+              {/* 🚀 UPGRADED CHECKOUT BUTTON */}
+              <button
+                onClick={handleCheckout}
+                disabled={isCheckingOut}
+                className="w-full flex justify-center items-center bg-emerald-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-emerald-800 transition-all duration-300 shadow-md mt-6 disabled:opacity-70 disabled:cursor-wait"
+              >
+                {isCheckingOut ? 'Verifying...' : 'Proceed to Checkout'}
               </button>
 
               <div className="mt-6 flex justify-center items-center gap-2 text-gray-500 text-sm">
